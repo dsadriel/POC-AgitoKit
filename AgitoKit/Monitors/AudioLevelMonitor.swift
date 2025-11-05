@@ -45,9 +45,9 @@ final class AudioLevelMonitor {
             timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
                 guard let self, let rec = self.recorder else { return }
                 rec.updateMeters()
-                // normaliza média (dB) para 0..1
+                // normalize average (dB) to 0..1
                 let avg = rec.averagePower(forChannel: 0) // ~[-160, 0]
-                let norm = max(0, min(1, (avg + 50) / 50)) // sensibilidade simples
+                let norm = max(0, min(1, (avg + 50) / 50)) // simple sensitivity
                 self.level = norm
             }
         } catch {

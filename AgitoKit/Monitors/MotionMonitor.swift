@@ -25,7 +25,7 @@ final class MotionMonitor {
             self.pitch = m.attitude.pitch
             self.yaw = m.attitude.yaw
 
-            // “Inclinação” agregada — simples norma 2D com roll/pitch em graus
+            // Aggregated "tilt" — simple 2D norm using roll/pitch in degrees
             let r = abs(m.attitude.roll * 180/Double.pi)
             let p = abs(m.attitude.pitch * 180/Double.pi)
             self.tiltMagnitude = sqrt(r*r + p*p)

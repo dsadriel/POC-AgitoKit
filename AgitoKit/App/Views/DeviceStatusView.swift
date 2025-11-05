@@ -23,7 +23,11 @@ struct DeviceStatusView: View {
                     HStack {
                         Text("Level")
                         Spacer()
-                        Text("\(Int(batteryMonitor.level * 100))%")
+                        VStack(alignment: .leading) {
+                            Text("\(Int(batteryMonitor.level * 100))%")
+                            Text("Aproximado de 5 em 5")
+                                .font(.caption2)
+                        }
                     }
                     HStack {
                         Text("State")

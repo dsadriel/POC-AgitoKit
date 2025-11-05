@@ -32,7 +32,7 @@ final class HapticsManager {
     }
 
     func tap() {
-        // Fallback rápido se não houver haptics avançado
+        // Quick fallback if advanced haptics are not available
         if engine == nil {
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
