@@ -5,7 +5,6 @@
 //  Created by Adriel de Souza on 05/11/25.
 //
 
-
 import Foundation
 import UIKit
 
@@ -15,7 +14,7 @@ final class BrightnessMonitor {
 
     init() {
         self.brightness = UIScreen.main.brightness
-        
+
         // Listen for system brightness changes
         NotificationCenter.default.addObserver(self, selector: #selector(brightnessDidChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
     }
@@ -23,7 +22,7 @@ final class BrightnessMonitor {
     @objc private func brightnessDidChange() {
         self.brightness = UIScreen.main.brightness
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

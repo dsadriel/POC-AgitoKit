@@ -7,7 +7,6 @@
 
 import AVFoundation
 
-
 @Observable
 final class TorchController {
     var torchOn: Bool = false

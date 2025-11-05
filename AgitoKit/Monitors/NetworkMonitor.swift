@@ -5,7 +5,6 @@
 //  Created by Adriel de Souza on 05/11/25.
 //
 
-
 import Foundation
 import Network
 
@@ -13,7 +12,7 @@ import Network
 class NetworkMonitor {
     var isConnected = false
     var connectionType = "N/A"
-    
+
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")
 
@@ -22,7 +21,7 @@ class NetworkMonitor {
             DispatchQueue.main.async {
                 // Update connection status
                 self?.isConnected = path.status == .satisfied
-                
+
                 // Determine connection type
                 if path.usesInterfaceType(.wifi) {
                     self?.connectionType = "Wi-Fi"
@@ -39,7 +38,7 @@ class NetworkMonitor {
         }
         monitor.start(queue: queue)
     }
-    
+
     deinit {
         monitor.cancel()
     }

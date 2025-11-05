@@ -5,7 +5,6 @@
 //  Created by Adriel de Souza on 05/11/25.
 //
 
-
 import Foundation
 import UIKit // Required for UIDevice
 
@@ -17,7 +16,7 @@ final class BatteryMonitor {
     init() {
         // 1. Enable battery monitoring
         UIDevice.current.isBatteryMonitoringEnabled = true
-        
+
         // 2. Initial read
         self.level = UIDevice.current.batteryLevel
         self.state = UIDevice.current.batteryState
@@ -34,7 +33,7 @@ final class BatteryMonitor {
     @objc private func batteryStateDidChange() {
         self.state = UIDevice.current.batteryState
     }
-    
+
     // A function to get a readable string for the state
     func batteryStateString() -> String {
         switch state {

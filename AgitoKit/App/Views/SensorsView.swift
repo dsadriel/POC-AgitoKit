@@ -18,28 +18,58 @@ struct SensorsView: View {
     var body: some View {
         NavigationView {
             List {
-                Section("Sensors") {
-                    sensorRow(label: "Tilt magnitude", value: String(format: "%.1f°", motion.tiltMagnitude))
-                    sensorRow(label: "Roll", value: String(format: "%.1f°", motion.roll * 180 / Double.pi))
-                    sensorRow(label: "Pitch", value: String(format: "%.1f°", motion.pitch * 180 / Double.pi))
-                    sensorRow(label: "Yaw (rotation)", value: String(format: "%.1f°", motion.yaw * 180 / Double.pi))
-                    sensorRow(label: "Proximity", value: proximity.isClose ? "Near" : "Far")
-                    sensorRow(label: "Noise (mic)", value: String(format: "%.0f%%", audio.level * 100))
-                }
-
-                Section {
-                    Group {
-                        Button(isRunning ? "Stop sensors" : "Start sensors") {
-                            toggleSensors()
+                Section("Sensors 🔎") {
+                    HStack {
+                        Text("Tilt magnitude")
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Text(String(format: "%.1f°", motion.tiltMagnitude))
+                            Text("Combined roll/pitch")
+                                .font(.caption2)
                         }
                     }
-                    .tint(isRunning ? .red : .green)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .buttonStyle(.bordered)
-                }
-                .listRowBackground(Color.clear)
 
+                    HStack {
+                        Text("Roll")
+                        Spacer()
+                        Text(String(format: "%.1f°", motion.roll * 180 / Double.pi))
+                    }
+
+                    HStack {
+                        Text("Pitch")
+                        Spacer()
+                        Text(String(format: "%.1f°", motion.pitch * 180 / Double.pi))
+                    }
+
+                    HStack {
+                        Text("Yaw")
+                        Spacer()
+                        Text(String(format: "%.1f°", motion.yaw * 180 / Double.pi))
+                    }
+
+                    HStack {
+                        Text("Proximity")
+                        Spacer()
+                        Text(proximity.isClose ? "Near" : "Far")
+                            .foregroundColor(proximity.isClose ? .green : .red)
+                    }
+
+                    HStack {
+                        Text("Noise (mic)")
+                        Spacer()
+                        Text(String(format: "%.0f%%", audio.level * 100))
+                    }
+                }
+                .navigationTitle("Sensors")
+
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { toggleSensors() }) {
+                        Text(isRunning ? "Stop" : "Start")
+                    }
+                    .tint(isRunning ? .red : .green)
+                }
             }
         }
     }

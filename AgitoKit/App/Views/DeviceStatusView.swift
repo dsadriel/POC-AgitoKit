@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-import MediaPlayer
 
 struct DeviceStatusView: View {
     @State private var batteryMonitor = BatteryMonitor()
     @State private var networkMonitor = NetworkMonitor()
     @State private var brightnessMonitor = BrightnessMonitor()
     @State private var volumeMonitor = VolumeMonitor()
-
 
     var body: some View {
         NavigationView {
@@ -23,9 +21,9 @@ struct DeviceStatusView: View {
                     HStack {
                         Text("Level")
                         Spacer()
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .trailing) {
                             Text("\(Int(batteryMonitor.level * 100))%")
-                            Text("Aproximado de 5 em 5")
+                            Text("Rounded every 5%")
                                 .font(.caption2)
                         }
                     }
@@ -33,7 +31,9 @@ struct DeviceStatusView: View {
                         Text("State")
                         Spacer()
                         Text(batteryMonitor.batteryStateString())
-                            .foregroundColor(batteryMonitor.state == .charging || batteryMonitor.state == .full ? .green : .primary)
+                            .foregroundColor(
+                                batteryMonitor.state == .charging || batteryMonitor.state == .full ? .green : .primary
+                            )
                     }
                 }
 
@@ -68,37 +68,15 @@ struct DeviceStatusView: View {
                 }
 
                 Section("Audio Status 🔊") {
-                                    HStack {
-                                        Text("Current Volume")
-                                        Spacer()
-                                        // Volume is reported as a Float from 0.0 to 1.0
-                                        Text("\(Int(volumeMonitor.currentVolume * 100))%")
-                                    }
-
-                                    // The standard, user-facing way to adjust volume
-                                    VStack(alignment: .leading) {
-                                        Text("System Volume Control (User Only)")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-
-                                        // Bridge the UIKit MPVolumeView to SwiftUI
-                                        VolumeControlView()
-                                            .frame(height: 30) // Give it a fixed height
-                                    }
-                                }
+                    HStack {
+                        Text("Current Volume")
+                        Spacer()
+                        // Volume is reported as a Float from 0.0 to 1.0
+                        Text("\(Int(volumeMonitor.currentVolume * 100))%")
+                    }
+                }
             }
             .navigationTitle("Device Monitors")
         }
-    }
-}
-
-// Helper to wrap MPVolumeView for use in SwiftUI
-struct VolumeControlView: UIViewRepresentable {
-    func makeUIView(context: Context) -> MPVolumeView {
-        return MPVolumeView(frame: .zero)
-    }
-
-    func updateUIView(_ uiView: MPVolumeView, context: Context) {
-        // No update logic needed
     }
 }
